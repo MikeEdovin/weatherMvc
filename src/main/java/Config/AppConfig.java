@@ -1,5 +1,4 @@
 package Config;
-import com.weatherMvcBoot.weatherMvc.HomeController;
 import OpenWeatherMapClient.GeoWeatherProvider;
 import OpenWeatherMapClient.GeoWeatherProviderImpl;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -9,8 +8,7 @@ import org.springframework.context.annotation.*;
 @Configuration
 @EnableAspectJAutoProxy
 @EnableAutoConfiguration
-@ComponentScan(basePackages = "src/main/java/Controllers")
-//@Import({CacheConfig.class})
+
 public class AppConfig {
 
     @Bean("restTemplateBuilder")
