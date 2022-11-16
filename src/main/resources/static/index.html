@@ -2,10 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Retrieve Aircraft Position Report</title>
+    <title>Choose city to get forecast</title>
 </head>
 <body>
-<p><a href="/home">Click here</a>
-    to retrieve current aircraft positions in range of receiver.</p>
+<h1>Enter city name and press search</h1>
+<form action="/form/submit" action="post">
+    <textarea name="city" rows="1" cols="35">Type city name here</textarea><br>
+    <input type="submit" name="submit" value="Send">
+</form>
 </body>
 </html>

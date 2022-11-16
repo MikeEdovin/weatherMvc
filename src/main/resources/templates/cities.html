@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Choose from city list</title>
+</head>
+<<div class="citiesList" th:unless="${#lists.isEmpty(citiesList)}">
+    <h2>Choose from city list</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Country</th>
+            <th>State</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="city : ${citiesList}">
+            <td th:text="${city.name}"></td>
+            <td th:text="${city.latitude}"></td>
+            <td th:text="${city.longitude}"></td>
+            <td th:text="${city.country}"></td>
+            <td th:text="${city.state}"></td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+    </body>
+</html>
