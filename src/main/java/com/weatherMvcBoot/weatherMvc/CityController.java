@@ -1,6 +1,7 @@
 package com.weatherMvcBoot.weatherMvc;
 
 import Entities.CityData;
+import Entities.WeatherData;
 import OpenWeatherMapClient.GeoWeatherProvider;
 import Service.CityService;
 import Service.WeatherService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 //@Controller
 @Controller
@@ -22,6 +24,8 @@ public class CityController {
     GeoWeatherProvider geoWeatherProvider;
     @Autowired
     CityService cityService;
+    @Autowired
+    WeatherService weatherService;
 
     @GetMapping("/cities/enterCityName")
     String openCityEnteringForm() {
@@ -39,6 +43,17 @@ public class CityController {
         Iterable<CityData> cities=cityService.getAllCities();
         model.addAttribute("citiesList",cities);
         return "cities";
+    }
+    @PostMapping("/cities/chooseCity")
+    String requestForecast(CityData city) throws JsonProcessingException {
+        WeatherData weatherData=geoWeatherProvider.getWeatherData(geoWeatherProvider.
+                getOneCallAPI(city.getLatitude(), city.getLongitude()));
+        weatherService.save(weatherData);
+        return "redirect:weather";
+    }
+    @GetMapping("/cities/weather")
+    String getForecast(Model model){
+        return "weather";
     }
 
 }
