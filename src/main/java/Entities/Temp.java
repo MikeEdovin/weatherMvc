@@ -17,8 +17,6 @@ import javax.persistence.Id;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Embeddable
 public class Temp {
-   //@Id
-    //@Generated
     private long tempId;
     @JsonProperty("day")
     private float dayTemp;

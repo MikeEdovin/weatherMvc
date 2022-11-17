@@ -17,18 +17,24 @@
             <th>Country</th>
             <th>State</th>
         </tr>
+
         </thead>
         <tbody>
-        <tr th:each="city : ${citiesList}">
-            <td th:text="${city.name}"></td>
+        <tr th:each="city : ${citiesList}" style="cursor:pointer">
+            <td th:text="${city.name}" onclick="rowClicked(this.getAttribute('city.name'))"></td>
             <td th:text="${city.latitude}"></td>
             <td th:text="${city.longitude}"></td>
             <td th:text="${city.country}"></td>
             <td th:text="${city.state}"></td>
 
+
         </tr>
         </tbody>
     </table>
+    <p>
+        <a href="../home.html" th:href="@{/}">Return to home</a>
+    </p>
+
 </div>
     </body>
 </html>

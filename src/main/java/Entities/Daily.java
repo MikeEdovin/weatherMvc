@@ -23,11 +23,9 @@ public class Daily {
     @JsonProperty("moon_phase")
     private float moonPhase;
     @Embedded
-    //@EmbeddedId
     private Temp temp;
     @JsonProperty("feels_like")
     @Embedded
-    //@EmbeddedId
     private FeelsLike feelsLike;
     private int pressure;
     private int humidity;

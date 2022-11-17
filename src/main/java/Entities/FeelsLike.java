@@ -17,8 +17,6 @@ import javax.persistence.Id;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Embeddable
 public class FeelsLike {
-    //@Id
-    //@Generated
     private long id;
     @JsonProperty("day")
     private float dayFeelsLike;

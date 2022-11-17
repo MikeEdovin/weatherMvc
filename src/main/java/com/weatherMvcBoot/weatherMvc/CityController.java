@@ -16,27 +16,26 @@ import java.util.List;
 
 //@Controller
 @Controller
-@RequestMapping("/cities")
+//@RequestMapping("/cities")
 public class CityController {
     @Autowired
     GeoWeatherProvider geoWeatherProvider;
     @Autowired
     CityService cityService;
 
-    @GetMapping("/enterCityName")
+    @GetMapping("/cities/enterCityName")
     String openCityEnteringForm() {
         return "enterCityName";
     }
 
-    @PostMapping("/enterCityName")
+    @PostMapping("/cities/enterCityName")
     String requestCities(String city) throws JsonProcessingException {
         List<CityData> cities = geoWeatherProvider.getCityData(geoWeatherProvider.directGeoApiCall(city));
         cityService.saveAll(cities);
-        return "redirect:cities/chooseCity";
+        return "redirect:chooseCity";
     }
-    @GetMapping("/chooseCity")
+    @GetMapping("/cities/chooseCity")
     String getCities(Model model){
-        System.out.println("redirect");
         Iterable<CityData> cities=cityService.getAllCities();
         model.addAttribute("citiesList",cities);
         return "cities";
