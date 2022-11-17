@@ -5,12 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
+
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
 public class Daily {
     @Id
     private long dt;
@@ -20,8 +22,12 @@ public class Daily {
     private long moonset;
     @JsonProperty("moon_phase")
     private float moonPhase;
+    @Embedded
+    //@EmbeddedId
     private Temp temp;
     @JsonProperty("feels_like")
+    @Embedded
+    //@EmbeddedId
     private FeelsLike feelsLike;
     private int pressure;
     private int humidity;

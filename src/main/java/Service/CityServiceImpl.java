@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class CityServiceImpl implements CityService{
-
+    @Autowired
     CityRepository cityRepository;
     @Override
     public void save(CityData city) {

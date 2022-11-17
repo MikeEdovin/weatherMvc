@@ -5,34 +5,46 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
+
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
 public class Current {
     @Id
-    private long dt;
-    private long sunrise;
-    private long sunset;
+    @JsonProperty("dt")
+    private long currentDt;
+    @JsonProperty("sunrise")
+    private long currentSunrise;
+    @JsonProperty("sunset")
+    private long currentSunset;
     private float temp;
     @JsonProperty("feels_like")
     private float feelsLike;
-    private int pressure;
-    private int humidity;
+    @JsonProperty("pressure")
+    private int currentPressure;
+    @JsonProperty("humidity")
+    private int currentHumidity;
     @JsonProperty("dew_point")
-    private float dewPoint;
-    private float uvi;
-    private int clouds;
+    private float currentDewPoint;
+    @JsonProperty("uvi")
+    private float currentUvi;
+    @JsonProperty("clouds")
+    private int currentClouds;
     private int visibility;
     @JsonProperty("wind_speed")
-    private float windSpeed;
+    private float currentWindSpeed;
     @JsonProperty("wind_degree")
-    private int windDegree;
+    private int currentWindDegree;
     @JsonProperty("wind_gust")
-    private float windGust;
-    private Weather[] weather;
+    private float currentWindGust;
+    @JsonProperty("weather")
+    private Weather[] currentWeather;
 
 
 }

@@ -46,7 +46,6 @@ public class GeoWeatherProviderImpl implements GeoWeatherProvider {
 
     @Override
     public List<CityData> getCityData(String response) throws JsonProcessingException {
-        System.out.println("called cityData");
         ObjectMapper objectMapper=new ObjectMapper();
         CollectionType javaType = objectMapper.getTypeFactory()
                 .constructCollectionType(List.class, CityData.class);
@@ -77,7 +76,7 @@ public class GeoWeatherProviderImpl implements GeoWeatherProvider {
         if(cacheWeather!=null) {
             ZonedDateTime zdtNow = ZonedDateTime.now(ZoneId.of(cacheWeather.getTimezone()));
             Long now = zdtNow.toEpochSecond();
-            long timeOfUpdate = cacheWeather.getCurrent().getDt();
+            long timeOfUpdate = cacheWeather.getCurrent().getCurrentDt();
             boolean result=now - timeOfUpdate > 3600;
             if(result){
                 evictSingleCacheValue("weatherDataCache", String.valueOf(lat));
