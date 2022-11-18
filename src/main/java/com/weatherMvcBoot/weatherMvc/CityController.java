@@ -1,7 +1,6 @@
 package com.weatherMvcBoot.weatherMvc;
 
-import Entities.CityData;
-import Entities.WeatherData;
+import Entities.*;
 import OpenWeatherMapClient.GeoWeatherProvider;
 import Service.CityService;
 import Service.WeatherService;
@@ -12,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,8 +24,11 @@ public class CityController {
     GeoWeatherProvider geoWeatherProvider;
     @Autowired
     CityService cityService;
+
     @Autowired
     WeatherService weatherService;
+
+
 
     @GetMapping("/cities/enterCityName")
     String openCityEnteringForm() {
@@ -45,14 +48,31 @@ public class CityController {
         return "cities";
     }
     @PostMapping("/cities/chooseCity")
-    String requestForecast(CityData city) throws JsonProcessingException {
-        WeatherData weatherData=geoWeatherProvider.getWeatherData(geoWeatherProvider.
-                getOneCallAPI(city.getLatitude(), city.getLongitude()));
+    String requestForecast(CityData city,Model model) throws JsonProcessingException {
+        System.out.println("city "+city.getLatitude()+" "+city.getLongitude());
+        String res=geoWeatherProvider.getOneCallAPI(city.getLatitude(), city.getLongitude());
+        WeatherData weatherData=geoWeatherProvider.getWeatherData(res);
+        Current current=weatherData.getCurrent();
+        System.out.println("city "+city.getLatitude()+" weather "+weatherData.getLat());
+        model.addAttribute("city",city);
+        model.addAttribute("current",current);
         weatherService.save(weatherData);
-        return "redirect:weather";
+        //return "redirect:weather";
+        return "weather";
     }
     @GetMapping("/cities/weather")
     String getForecast(Model model){
+        CityData cityData= (CityData) model.getAttribute("city");
+        WeatherId weatherId=new WeatherId((float) cityData.getLatitude(),
+                (float) cityData.getLongitude());
+        Optional<WeatherData> weatherData=weatherService.getWeatherDataById(weatherId);
+        Current current= weatherData.get().getCurrent();
+        //Daily[] daily=weatherData.get().getDaily();
+        model.addAttribute("name",cityData.getName());
+        model.addAttribute("current",current);
+        //model.addAttribute("daily",daily);
+
+
         return "weather";
     }
 

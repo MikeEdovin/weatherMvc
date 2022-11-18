@@ -7,13 +7,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
-public class Daily {
+public class Daily implements Serializable {
     @Id
     private long dt;
     private long sunrise;
@@ -22,10 +23,8 @@ public class Daily {
     private long moonset;
     @JsonProperty("moon_phase")
     private float moonPhase;
-    @Embedded
     private Temp temp;
     @JsonProperty("feels_like")
-    @Embedded
     private FeelsLike feelsLike;
     private int pressure;
     private int humidity;

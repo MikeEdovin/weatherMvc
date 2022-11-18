@@ -3,9 +3,11 @@ package com.weatherMvcBoot.weatherMvc;
 import Config.AppConfig;
 import Config.CacheConfig;
 import Config.InfrastructureConfig;
+import Entities.WeatherData;
 import OpenWeatherMapClient.GeoWeatherProvider;
 import OpenWeatherMapClient.GeoWeatherProviderImpl;
 import Repository.CityRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,9 +25,22 @@ import java.util.Arrays;
 public class WeatherMvcApplication {
 
 	public static void main(String[] args) {
-				SpringApplication.run(WeatherMvcApplication.class, args);
+				ApplicationContext context=SpringApplication.run(WeatherMvcApplication.class, args);
+				GeoWeatherProvider geoWeatherProvider=context.getBean(GeoWeatherProvider.class);
+				try {
+					String res=
+							geoWeatherProvider.getOneCallAPI(59.938732, 30.316229);
+					System.out.println(res);
+					WeatherData weatherData=geoWeatherProvider.getWeatherData(res);
+				}catch (Exception e) {
+					System.out.println("exception");
+					e.printStackTrace();
+				}
+
+
+				}
 
 	}
 
 
-}
+

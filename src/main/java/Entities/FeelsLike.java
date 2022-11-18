@@ -6,17 +6,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Generated;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Embeddable
-public class FeelsLike {
+
+public class FeelsLike implements Serializable {
+    @Id
     private long id;
     @JsonProperty("day")
     private float dayFeelsLike;

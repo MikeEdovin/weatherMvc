@@ -37,7 +37,8 @@ public class GeoWeatherProviderImpl implements GeoWeatherProvider {
     }
     
     @Override
-    @Cacheable(cacheNames = "weatherDataCache",key="#weatherData.lat" )
+    //@Cacheable(cacheNames = "weatherDataCache",key="#weatherData.weatherId" )
+    //TODO compound cache key
     public WeatherData getWeatherData(String response) throws JsonProcessingException {
         ObjectMapper objectMapper=new ObjectMapper();
         WeatherData weatherData=objectMapper.readValue(response,WeatherData.class);

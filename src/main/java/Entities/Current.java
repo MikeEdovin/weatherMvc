@@ -9,6 +9,13 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.criteria.CriteriaBuilder;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.TimeZone;
 
 @Data
 @NoArgsConstructor
@@ -16,6 +23,7 @@ import javax.persistence.Id;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 public class Current {
+
     @Id
     @JsonProperty("dt")
     private long currentDt;
@@ -23,9 +31,9 @@ public class Current {
     private long currentSunrise;
     @JsonProperty("sunset")
     private long currentSunset;
-    private float temp;
+    private float currentTemp;
     @JsonProperty("feels_like")
-    private float feelsLike;
+    private float currentFeelsLike;
     @JsonProperty("pressure")
     private int currentPressure;
     @JsonProperty("humidity")
@@ -46,5 +54,22 @@ public class Current {
     @JsonProperty("weather")
     private Weather[] currentWeather;
 
+
+
+    public String getDate(){
+        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd-MM-yy");
+        String date = Instant.ofEpochSecond(this.currentDt).
+                atZone(ZoneId.systemDefault()).toLocalDate().format(formatter);
+        return date;}
+    public String getFormattedSunrise(){
+        return Instant.ofEpochSecond(this.currentSunrise).
+                atZone(ZoneId.systemDefault()).toLocalDateTime().
+                format(DateTimeFormatter.ofPattern("hh:mm:ss"));
+    }
+    public String getFormattedSunset(){
+        return Instant.ofEpochSecond(this.currentSunset).
+                atZone(ZoneId.systemDefault()).toLocalDateTime().
+                format(DateTimeFormatter.ofPattern("hh:mm:ss"));
+    }
 
 }

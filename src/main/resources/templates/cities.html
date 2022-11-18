@@ -9,12 +9,12 @@
 <<span class="citiesList" th:unless="${#lists.isEmpty(citiesList)}">
     <h2>Choose from city list</h2>
         <tr th:each="city : ${citiesList}" >
-            <form method="post">
-                Name:<input type="text" th:value="${city.name}"  >
-                Latitude:<input type="text" th:value="${city.latitude}" >
-                Longitude:<input type="text" th:value="${city.longitude}" >
-                Country:<input type="text" th:value="${city.country}" >
-                State:<input type="text" th:value="${city.state}" >
+            <form action="/cities/chooseCity" method="post">
+                Name:<input type="text" th:name="name" th:value="${city.name}"  >
+                Latitude:<input type="text" th:name="latitude"  th:value="${city.latitude}" >
+                Longitude:<input type="text"  th:name="longitude" th:value="${city.longitude}" >
+                Country:<input type="text" th:name="country" th:value="${city.country}" >
+                State:<input type="text" th:name="state" th:value="${city.state}" >
                 <input type="submit" value="Choose">
             </form>
         </tr>

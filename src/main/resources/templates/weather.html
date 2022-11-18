@@ -1,11 +1,57 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8"/>
-  <title>Spring Boot Thymeleaf Application - Form Samples - Inputs</title>
+  <title>Weather report</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-
-
+<h2>Weather report </h2>
+<span class="name" th:unless="${#lists.isEmpty(name)}">
+  <tr>
+    <th>Current weather for</th>
+  </tr>
+  <tr th:each="item : ${name}">
+  <td th:text="${item}"></td>
+  </tr>
+</span>
+<div class="current" th:unless="${#lists.isEmpty(current)}">
+  <table>
+    <thead>
+    <tr>
+      <th>Date</th>
+      <th>Sunrise</th>
+      <th>Sunset</th>
+      <th>Temperature</th>
+      <th>Feels like</th>
+      <th>Pressure</th>
+      <th>Humidity</th>
+      <th>Dew point</th>
+      <th>UVI</th>
+      <th>Clouds</th>
+      <th>Visibility</th>
+      <th>Wind speed</th>
+      <th>Wind degree</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="field : ${current}">
+      <td th:text="${field.getDate()}"></td>
+      <td th:text="${field.getFormattedSunrise()}"></td>
+      <td th:text="${field.getFormattedSunset()}"></td>
+      <td th:text="${field.currentTemp}"></td>
+      <td th:text="${field.currentFeelsLike}"></td>
+      <td th:text="${field.currentPressure}"></td>
+      <td th:text="${field.currentHumidity}"></td>
+      <td th:text="${field.currentDewPoint}"></td>
+      <td th:text="${field.currentUvi}"></td>
+      <td th:text="${field.currentClouds}"></td>
+      <td th:text="${field.visibility}"></td>
+      <td th:text="${field.currentWindSpeed}"></td>
+      <td th:text="${field.currentWindDegree}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
 </body>
 </html>

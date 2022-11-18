@@ -16,14 +16,18 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @EnableAutoConfiguration
+
 @EnableJpaRepositories(basePackageClasses = {CityRepository.class,WeatherRepository.class})
 @EntityScan(basePackages = {"Entities"})
 public class InfrastructureConfig {
     @Bean
     public CityService cityService(){return new CityServiceImpl();
     }
+
     @Bean
     public WeatherService weatherService(){return new WeatherServiceImpl();
     }
+
+
     
 }

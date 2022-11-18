@@ -2,6 +2,7 @@ package Service;
 
 import Entities.WeatherData;
 import Entities.WeatherId;
+//import Repository.WeatherRepository;
 import Repository.WeatherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,4 +20,8 @@ public class WeatherServiceImpl implements WeatherService{
     public Optional<WeatherData> getWeatherDataById(WeatherId id) {
         return weatherRepository.findById(id);
     }
+
+
 }
+
+
