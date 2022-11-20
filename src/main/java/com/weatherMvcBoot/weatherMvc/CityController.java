@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,28 +50,32 @@ public class CityController {
     }
     @PostMapping("/cities/chooseCity")
     String requestForecast(CityData city,Model model) throws JsonProcessingException {
-        System.out.println("city "+city.getLatitude()+" "+city.getLongitude());
-        String res=geoWeatherProvider.getOneCallAPI(city.getLatitude(), city.getLongitude());
+        System.out.println("city "+city.getLat()+" "+city.getLon());
+        String res=geoWeatherProvider.getOneCallAPI(city.getLat(), city.getLon());
         WeatherData weatherData=geoWeatherProvider.getWeatherData(res);
         Current current=weatherData.getCurrent();
-        System.out.println("city "+city.getLatitude()+" weather "+weatherData.getLat());
+        Daily[] daily= weatherData.getDaily();
         model.addAttribute("city",city);
         model.addAttribute("current",current);
+        model.addAttribute("daily",daily);
         weatherService.save(weatherData);
         //return "redirect:weather";
         return "weather";
     }
     @GetMapping("/cities/weather")
     String getForecast(Model model){
+        System.out.println("got it");
         CityData cityData= (CityData) model.getAttribute("city");
-        WeatherId weatherId=new WeatherId((float) cityData.getLatitude(),
-                (float) cityData.getLongitude());
+        WeatherId weatherId=new WeatherId( cityData.getLat(),
+                cityData.getLon());
+
         Optional<WeatherData> weatherData=weatherService.getWeatherDataById(weatherId);
         Current current= weatherData.get().getCurrent();
-        //Daily[] daily=weatherData.get().getDaily();
+        Daily[] daily= weatherData.get().getDaily();
+        System.out.println("daily" +daily[0].getFeelsLike());
         model.addAttribute("name",cityData.getName());
         model.addAttribute("current",current);
-        //model.addAttribute("daily",daily);
+        model.addAttribute("daily",daily);
 
 
         return "weather";

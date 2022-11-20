@@ -16,9 +16,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-
-public class FeelsLike implements Serializable {
-    @Id
+@Embeddable
+public class FeelsLike  {
     private long id;
     @JsonProperty("day")
     private float dayFeelsLike;

@@ -6,9 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -21,10 +19,9 @@ import java.util.TimeZone;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Entity
+@Embeddable
 public class Current {
 
-    @Id
     @JsonProperty("dt")
     private long currentDt;
     @JsonProperty("sunrise")

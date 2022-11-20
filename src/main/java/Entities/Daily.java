@@ -8,14 +8,16 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Entity
+@Embeddable
 public class Daily implements Serializable {
-    @Id
     private long dt;
     private long sunrise;
     private long sunset;
@@ -23,8 +25,10 @@ public class Daily implements Serializable {
     private long moonset;
     @JsonProperty("moon_phase")
     private float moonPhase;
+    @Embedded
     private Temp temp;
     @JsonProperty("feels_like")
+    @Embedded
     private FeelsLike feelsLike;
     private int pressure;
     private int humidity;
@@ -41,4 +45,21 @@ public class Daily implements Serializable {
     private float pop;
     private float rain;
     private float uvi;
+
+    public String getDate(){
+        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd-MM-yy");
+        String date = Instant.ofEpochSecond(this.dt).
+                atZone(ZoneId.systemDefault()).toLocalDate().format(formatter);
+        return date;}
+    public String getFormattedSunrise(){
+        return Instant.ofEpochSecond(this.sunrise).
+                atZone(ZoneId.systemDefault()).toLocalDateTime().
+                format(DateTimeFormatter.ofPattern("hh:mm:ss"));
+    }
+    public String getFormattedSunset(){
+        return Instant.ofEpochSecond(this.sunset).
+                atZone(ZoneId.systemDefault()).toLocalDateTime().
+                format(DateTimeFormatter.ofPattern("hh:mm:ss"));
+    }
+
 }

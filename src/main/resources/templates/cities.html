@@ -11,8 +11,8 @@
         <tr th:each="city : ${citiesList}" >
             <form action="/cities/chooseCity" method="post">
                 Name:<input type="text" th:name="name" th:value="${city.name}"  >
-                Latitude:<input type="text" th:name="latitude"  th:value="${city.latitude}" >
-                Longitude:<input type="text"  th:name="longitude" th:value="${city.longitude}" >
+                Latitude:<input type="text" th:name="lat"  th:value="${city.lat}" >
+                Longitude:<input type="text"  th:name="lon" th:value="${city.lon}" >
                 Country:<input type="text" th:name="country" th:value="${city.country}" >
                 State:<input type="text" th:name="state" th:value="${city.state}" >
                 <input type="submit" value="Choose">

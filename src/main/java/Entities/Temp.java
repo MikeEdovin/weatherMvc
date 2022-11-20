@@ -16,8 +16,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-
-public class Temp implements Serializable {
+@Embeddable
+public class Temp  {
     @Id
     private long tempId;
     @JsonProperty("day")

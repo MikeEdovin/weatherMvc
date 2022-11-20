@@ -25,17 +25,8 @@ import java.util.Arrays;
 public class WeatherMvcApplication {
 
 	public static void main(String[] args) {
-				ApplicationContext context=SpringApplication.run(WeatherMvcApplication.class, args);
-				GeoWeatherProvider geoWeatherProvider=context.getBean(GeoWeatherProvider.class);
-				try {
-					String res=
-							geoWeatherProvider.getOneCallAPI(59.938732, 30.316229);
-					System.out.println(res);
-					WeatherData weatherData=geoWeatherProvider.getWeatherData(res);
-				}catch (Exception e) {
-					System.out.println("exception");
-					e.printStackTrace();
-				}
+				SpringApplication.run(WeatherMvcApplication.class, args);
+
 
 
 				}

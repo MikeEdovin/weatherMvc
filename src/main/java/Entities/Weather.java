@@ -16,10 +16,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Entity
+
 public class Weather implements Serializable {
-    @Id
-    @org.springframework.data.annotation.Id
     @JsonProperty("id")
     private String weatherId;
     private String main;

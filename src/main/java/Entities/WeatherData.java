@@ -14,18 +14,23 @@ import javax.persistence.*;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @IdClass(WeatherId.class)
+@Table(name="weather_data")
+
 public class WeatherData {
+
     @Id
-    private float lat;
+    private double lat;
     @Id
-    private float lon;
+    private double lon;
     private String timezone;
     @Embedded
     private Current current;
     @Embedded
     @ElementCollection
-    @OrderColumn(name="dt")
+    @JoinTable(name="daily")
+    @OrderColumn(name="daily_index")
     private Daily[] daily;
+
 }
 
 

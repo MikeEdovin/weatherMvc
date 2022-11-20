@@ -3,9 +3,9 @@ package Entities;
 import java.io.Serializable;
 
 public class WeatherId implements Serializable {
-    private float lat,lon;
+    private double lat,lon;
 
-    public WeatherId(float lat,float non){
+    public WeatherId(double lat,double non){
         this.lat=lat;
         this.lon=lon;
     }
@@ -24,8 +24,8 @@ public class WeatherId implements Serializable {
     @Override
     public int hashCode(){
         int hash=17;
-        hash= 31 * hash + Float.floatToIntBits(lat);
-        hash=31*hash+Float.floatToIntBits(lon);
+        hash= 31 * hash + Double.hashCode(lat);
+        hash=31*hash+Double.hashCode(lon);
         return hash;
     }
 }

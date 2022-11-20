@@ -6,8 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 @Data
@@ -15,17 +14,21 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
-
+@IdClass(WeatherId.class)
+@Table(name="city_data")
 public class CityData  {
-    @Id
+
     @JsonProperty("name")
     private String name;
     @JsonProperty("lat")
-    private double latitude;
+    @Id
+    private double lat;
     @JsonProperty("lon")
-    private double longitude;
+    @Id
+    private double lon;
     @JsonProperty("country")
     private String country;
     @JsonProperty("state")
     private String state;
+
 }
