@@ -29,4 +29,9 @@ public class CityServiceImpl implements CityService{
     public Iterable<CityData> getAllCities() {
         return cityRepository.findAll();
     }
+
+    @Override
+    public void deleteAll() {
+        cityRepository.deleteAll();
+    }
 }

@@ -62,6 +62,7 @@
       <th>Sunrise</th>
       <th>Sunset</th>
       <th>Temperature</th>
+      <th>NightTemp</th>
       <th>Feels like</th>
       <th>Pressure</th>
       <th>Humidity</th>
@@ -78,7 +79,8 @@
       <td th:text="${field.getDate()}"></td>
       <td th:text="${field.getFormattedSunrise()}"></td>
       <td th:text="${field.getFormattedSunset()}"></td>
-      <td th:text="${field.Temp}"></td>
+      <td th:text="${field.Temp.dayTemp}"></td>
+      <td th:text="${field.Temp.nightTemp}"></td>
       <td th:text="${field.FeelsLike}"></td>
       <td th:text="${field.Pressure}"></td>
       <td th:text="${field.Humidity}"></td>

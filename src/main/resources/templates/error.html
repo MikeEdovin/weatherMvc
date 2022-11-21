@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+</head>
+<<span class="exception" th:unless="${#lists.isEmpty(exception)}">
+    <h2>Exception was handled</h2>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Reason</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="e : ${exception}">
+      <td th:text="${e.message}"></td>
+
+    </tr>
+    </tbody>
+  </table>
+</span>
+</body>
+</html>

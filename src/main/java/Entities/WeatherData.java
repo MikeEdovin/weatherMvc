@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -17,6 +18,7 @@ import javax.persistence.*;
 @Table(name="weather_data")
 
 public class WeatherData {
+
 
     @Id
     private double lat;
@@ -30,6 +32,11 @@ public class WeatherData {
     @JoinTable(name="daily")
     @OrderColumn(name="daily_index")
     private Daily[] daily;
+
+    public void setLatLon(double lat, double lon){
+        this.lat=lat;
+        this.lon=lon;
+    }
 
 }
 

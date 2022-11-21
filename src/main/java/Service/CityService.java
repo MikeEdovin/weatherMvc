@@ -11,4 +11,5 @@ public interface CityService {
     void saveAll(List<CityData>cityList);
     Optional<CityData> getCityByName(String name);
     Iterable<CityData> getAllCities();
+    void deleteAll();
 }

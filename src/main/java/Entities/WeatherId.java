@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class WeatherId implements Serializable {
     private double lat,lon;
 
-    public WeatherId(double lat,double non){
+    public WeatherId(double lat,double lon){
         this.lat=lat;
         this.lon=lon;
     }
@@ -27,5 +27,13 @@ public class WeatherId implements Serializable {
         hash= 31 * hash + Double.hashCode(lat);
         hash=31*hash+Double.hashCode(lon);
         return hash;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public double getLon() {
+        return lon;
     }
 }
