@@ -33,10 +33,14 @@ public class WeatherData {
     @OrderColumn(name="daily_index")
     private Daily[] daily;
 
+
+
+
     public void setLatLon(double lat, double lon){
         this.lat=lat;
         this.lon=lon;
     }
+
 
 }
 

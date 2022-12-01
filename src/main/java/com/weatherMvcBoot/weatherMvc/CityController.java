@@ -9,16 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import java.util.*;
 
 //@Controller
 @Controller
@@ -40,17 +41,16 @@ public class CityController {
     }
 
     @PostMapping("/cities/enterCityName")
-    String requestCities(String city, Model model) throws JsonProcessingException {
-        cityService.deleteAll();
-        String res=geoWeatherProvider.directGeoApiCall(city);
-        if(res.equalsIgnoreCase("[]")){
-            model.addAttribute("exception", new NoSuchElementException("Nothing was found"));
-            return "error";
-        }
-        else{
-            List<CityData> cities = geoWeatherProvider.getCityData(geoWeatherProvider.directGeoApiCall(city));
-            cityService.saveAll(cities);
+    String requestCities(@ModelAttribute CityData city, Model model) throws JsonProcessingException {
+        try {
+            cityService.deleteAll();
+            CityData[] cities= geoWeatherProvider.directGeoApiCall(city.getName());
+            //TODO rewrite saving after confirming city
+            cityService.saveAll(List.of(cities));
             return "redirect:chooseCity";
+        }catch(HttpClientErrorException e){
+            model.addAttribute("exception", e);
+            return "error";
         }
     }
     @GetMapping("/cities/chooseCity")
@@ -61,8 +61,7 @@ public class CityController {
     }
     @PostMapping("/cities/chooseCity")
     RedirectView requestForecast(CityData city, RedirectAttributes attributes) throws JsonProcessingException {
-        String res=geoWeatherProvider.getOneCallAPI(city.getLat(), city.getLon());
-        WeatherData weatherData=geoWeatherProvider.getWeatherData(res);
+        WeatherData weatherData=geoWeatherProvider.getOneCallAPI(city.getLat(), city.getLon());
         weatherData.setLatLon(city.getLat(), city.getLon());//API returns different values for geo and weather requests
         attributes.addAttribute("name",city.getName());
         attributes.addAttribute("lat",city.getLat());

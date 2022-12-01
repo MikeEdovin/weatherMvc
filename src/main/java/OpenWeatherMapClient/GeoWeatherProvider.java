@@ -2,6 +2,7 @@ package OpenWeatherMapClient;
 
 import Entities.CityData;
 import Entities.WeatherData;
+import Entities.WeatherId;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.List;
@@ -9,10 +10,7 @@ import java.util.List;
 
 public interface GeoWeatherProvider {
 
-    String getOneCallAPI(Double latitude, Double longitude);
-    WeatherData getWeatherData(String response) throws JsonProcessingException;
-    List<CityData> getCityData(String response) throws JsonProcessingException;
-    String directGeoApiCall(String city);
-    String reverseGeoApiCall(Double latitude, Double longitude);
-    void clearWeatherCache(long lat);
+    WeatherData getOneCallAPI(Double latitude, Double longitude);
+    CityData[] directGeoApiCall(String city);
+
 }

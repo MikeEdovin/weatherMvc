@@ -12,14 +12,6 @@ import org.springframework.util.Assert;
 @SpringBootTest
 class WeatherMvcApplicationTests {
 
-	@Test
-	void contextLoads() throws JsonProcessingException {
-		RestTemplateBuilder restTemplateBuilder=new RestTemplateBuilder();
-		GeoWeatherProvider geoWeatherProvider=new GeoWeatherProviderImpl(restTemplateBuilder);
-		String res= geoWeatherProvider.getOneCallAPI(59.938732, 30.316229);
-		System.out.println(res);
-		WeatherData weatherData=geoWeatherProvider.getWeatherData(res);
-		System.out.println(weatherData.getLat()+weatherData.getTimezone()+weatherData.getCurrent().getCurrentPressure());
-	}
+
 
 }
