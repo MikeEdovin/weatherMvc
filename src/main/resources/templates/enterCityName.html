@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Enter city name to get forecast</title>
 </head>
 <body>
 <h1>Enter city name and press send button</h1>
 <form action="/cities/enterCityName" method="post" >
+    <input type="hidden" th:attr="name=${_csrf.parameterName},value=${_csrf.token}"/>
     <input type="text" name="name"  />
     <input type="submit" value="Send" />
 </form>

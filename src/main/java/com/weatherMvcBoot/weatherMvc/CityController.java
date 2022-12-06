@@ -37,25 +37,34 @@ public class CityController {
 
     @GetMapping("/cities/enterCityName")
     String openCityEnteringForm() {
+
         return "enterCityName";
     }
 
     @PostMapping("/cities/enterCityName")
-    String requestCities(@ModelAttribute CityData city, Model model) throws JsonProcessingException {
-        try {
+    String requestCities(CityData city, Model model) {
+        try{
             cityService.deleteAll();
             CityData[] cities= geoWeatherProvider.directGeoApiCall(city.getName());
-            //TODO rewrite saving after confirming city
+            System.out.println("city"+cities[0].getName());
             cityService.saveAll(List.of(cities));
             return "redirect:chooseCity";
         }catch(HttpClientErrorException e){
+            e.printStackTrace();
             model.addAttribute("exception", e);
             return "error";
+        }catch (Exception exc){
+            exc.printStackTrace();
+            model.addAttribute("exception", exc);
+            return "error";
         }
+
+
     }
     @GetMapping("/cities/chooseCity")
     String getCities(Model model){
         Iterable<CityData> cities=cityService.getAllCities();
+        System.out.println("redirected");
         model.addAttribute("citiesList", cities);
         return "cities";
     }
